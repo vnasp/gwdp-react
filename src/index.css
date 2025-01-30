@@ -12,10 +12,6 @@ body {
   padding: 20px;
 }
 
-.hidden {
-  display: none;
-}
-
 /* Assets */
 .card-activos {
   border: 1px solid #aaa;
@@ -69,68 +65,6 @@ body {
   background-color: rgb(133, 65, 205);
 }
 
-/* Wallets */
-.btn-wallet {
-  width: 75%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  color: #fff;
-  border-radius: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.btn-wallet:hover {
-  transform: translateX(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  opacity: 1;
-}
-
-.btn-wallet:focus {
-  outline: 3px solid #ffffff;
-  outline-offset: 2px;
-}
-
-.btn-wallet img {
-  filter: grayscale(100%) brightness(1.5) saturate(0%);
-  opacity: 0.5;
-  transition: all 0.3s ease;
-
-}
-
-.btn-wallet:hover img {
-  filter: grayscale(0%) brightness(1);
-  opacity: 1;
-}
-
-.metamask {
-  background-color: #e98a3a;
-  border: 1px solid #e98a3a;
-}
-
-.metamask:hover {
-  background-color: #d87c2d;
-}
-
-.wallet {
-  background-color: #559af7;
-  border: 1px solid #559af7;
-}
-
-.wallet:hover {
-  background-color: #478cd8;
-}
-
-.coinbase {
-  background-color: #0052fe;
-  border: 1px solid #0052fe;
-}
-
-.coinbase:hover {
-  background-color: #0040e0;
-}
-
 .wallets-disclaimer {
   font-size: 12px;
   color: #aaa;
@@ -148,26 +82,4 @@ body {
   background-image: url('./assets/img/bg-wallet.jpg');
   background-size: 40%;
   background-position: center;
-}
-
-/* Loading */
-.loading {
-  width: 3rem;
-  height: 3rem;
-}
-
-/* Success process */
-#step-5 {
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
