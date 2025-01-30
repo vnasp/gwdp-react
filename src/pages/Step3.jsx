@@ -1,8 +1,8 @@
 import { useAccount, useDisconnect } from "wagmi";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import '@reown/appkit-wallet-button/react'
 import axios from "axios";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 const Step3 = () => {
   const [searchParams] = useSearchParams();
@@ -11,6 +11,8 @@ const Step3 = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   
+  const { open } = useWeb3Modal(); // ✅ Hook para abrir el modal de Web3Modal
+
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
@@ -35,7 +37,7 @@ const Step3 = () => {
     setError(null);
 
     try {
-      const response = await axios.post(
+      await axios.post(
         WALLET_URL,
         { address },
         { headers: { Authorization: `Bearer ${token}` } }
@@ -55,6 +57,7 @@ const Step3 = () => {
       {error && <div className="alert alert-warning">{error}</div>}
       <div className="title">Prepárate para recibir tus activos</div>
       <div className="subtitle">Conecta tu billetera</div>
+
       <div className="row text-center my-4">
         <div className="col-md-4 my-2">
           <div className="activo-box">
@@ -77,16 +80,13 @@ const Step3 = () => {
             <div className="activo-sigla">NFT</div>
           </div>
         </div>
-
       </div>
+
       <div className="wallets-buttons">
         {!isConnected ? (
-            <>
-            <div className="btn-send rounded-5"><appkit-wallet-button wallet="metamask" /></div>
-            <div className="btn-send rounded-5"><appkit-wallet-button wallet="coinbase" /></div>
-            <div className="btn-send rounded-5"><appkit-wallet-button wallet="walletConnect" /></div>
-            <div className="btn-send rounded-5"><appkit-wallet-button wallet="trust" /></div>
-            </>
+          <button onClick={open} className="btn btn-primary">
+            Conectar Billetera
+          </button>
         ) : (
           <div className="text-center">
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
