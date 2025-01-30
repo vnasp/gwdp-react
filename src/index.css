@@ -14,14 +14,14 @@ body {
 
 /* Assets */
 .card-activos {
-  border: 1px solid #aaa;
-  border-radius: 1rem;
+  border: 1px solid #ad5eff;
+  border-radius: 2rem;
   background-color: #1a1a1a;
 }
 
 .activo-box {
-  border: 1px solid #aaa;
-  border-radius: 1rem;
+  border: 1px solid #ad5eff;
+  border-radius: 2rem;
   padding: 20px;
   background-color: #1a1a1a;
   transition: transform 0.3s, background-color 0.3s;
@@ -54,7 +54,7 @@ body {
 
 /* Form */
 .btn-send {
-  background-color: rgb(173, 95, 255);
+  background-color: #ad5eff;
   border: none;
   border-radius: 8px;
   color: #fff;

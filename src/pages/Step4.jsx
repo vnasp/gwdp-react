@@ -6,7 +6,7 @@ const messages = [
   "Generando la transacción en el contrato inteligente.",
   "Enviando la transacción a la blockchain.",
   "Esperando confirmaciones de la red.",
-  "Transacción confirmada. Entregando tus tokens...",
+  "Transacción confirmada. Entregando tus activos...",
 ];
 
 const Step4 = () => {
@@ -47,7 +47,7 @@ const Step4 = () => {
           <div className="card text-white mb-4 card-activos">
             <div className="card-body">
               <h4 className="text-warning text-center fw-bold">¡Transacción completada!</h4>
-              <p>Tus tokens han sido enviados exitosamente. Revisa tu billetera o Etherscan.</p>
+              <p>Tus activos han sido enviados exitosamente. Revisa tu billetera o Etherscan.</p>
               <button
                 className="btn bg-white"
                 onClick={() => window.open("https://etherscan.io/", "_blank")}

@@ -53,7 +53,7 @@ const Step3 = () => {
   return (
     <section id="step-3">
       {error && <div className="alert alert-danger">{error}</div>}
-      <div className="alert alert-warning">Prepárate para recibir tus tokens. Conecta tu billetera.</div>
+      <div className="alert alert-warning">Prepárate para recibir tus activos. Conecta tu billetera.</div>
       <div className="row text-center my-4">
         <div className="col-md-4 my-2">
           <div className="activo-box">
@@ -89,7 +89,7 @@ const Step3 = () => {
         ) : (
           <div className="text-center">
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
-              {loading ? "Enviando..." : "Solicitar entrega de tokens"}
+              {loading ? "Enviando..." : "Solicitar entrega de activos"}
             </button>
           </div>
         )}
