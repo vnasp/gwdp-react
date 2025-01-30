@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { walletConnectModal } from "./../Web3ModalProvider";
+import { walletConnectModal } from "../Web3ModalProvider";
 
 const Step3 = () => {
   const [searchParams] = useSearchParams();
