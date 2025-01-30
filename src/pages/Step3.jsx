@@ -1,13 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { walletConnectModal } from "../Web3ModalProvider";
+import {
+  WalletConnectModalSign,
+  useConnect,
+} from "@walletconnect/modal-sign-react";
+
+// ✅ Obtener `projectId` desde el .env
+const projectId = import.meta.env.VITE_WEB3MODAL_PROJECT_ID;
+if (!projectId) {
+  throw new Error("VITE_WEB3MODAL_PROJECT_ID no está definido.");
+}
 
 const Step3 = () => {
   const [searchParams] = useSearchParams();
   const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [address, setAddress] = useState(null);
   const navigate = useNavigate();
 
@@ -22,22 +32,37 @@ const Step3 = () => {
     }
   }, [searchParams]);
 
-  const connectWallet = async () => {
+  // ✅ Hook de WalletConnect
+  const { connect } = useConnect({
+    requiredNamespaces: {
+      eip155: {
+        methods: ["eth_sendTransaction", "personal_sign"],
+        chains: ["eip155:1"],
+        events: ["chainChanged", "accountsChanged"],
+      },
+    },
+  });
+
+  // ✅ Conectar billetera
+  async function onConnect() {
     try {
-      await walletConnectModal.open();
+      setDisabled(true);
+      const session = await connect();
 
-      const session = walletConnectModal.getSession();
-
-      if (session?.accounts?.length > 0) {
-        setAddress(session.accounts[0]);
+      if (session && session.namespaces.eip155.accounts.length > 0) {
+        const walletAddress = session.namespaces.eip155.accounts[0].split(":")[2]; // Extraer dirección
+        setAddress(walletAddress);
+        console.log("Billetera conectada:", walletAddress);
       } else {
         setError("No se pudo obtener la dirección de la billetera.");
       }
     } catch (err) {
       console.error("Error al conectar la billetera:", err);
       setError("Hubo un problema al conectar la billetera. Intenta nuevamente.");
+    } finally {
+      setDisabled(false);
     }
-  };
+  }
 
   const sendAddressToBackend = async () => {
     if (!token || !address) {
@@ -55,7 +80,6 @@ const Step3 = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      walletConnectModal.disconnect();
       setAddress(null);
       navigate("/request-progress");
     } catch (error) {
@@ -97,9 +121,9 @@ const Step3 = () => {
 
       <div className="wallets-buttons">
         {!address ? (
-          <button onClick={() => walletConnectModal.openModal()} className="btn btn-primary">
-          Conectar Billetera
-        </button>
+          <button onClick={onConnect} className="btn btn-primary" disabled={disabled}>
+            {disabled ? "Conectando..." : "Conectar Billetera"}
+          </button>
         ) : (
           <div className="text-center">
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
@@ -112,6 +136,17 @@ const Step3 = () => {
       <div className="wallets-disclaimer">
         La dirección de tu billetera no se almacenará y se usará únicamente para esta transacción.
       </div>
+
+      {/* ✅ WalletConnect Modal */}
+      <WalletConnectModalSign
+        projectId={projectId}
+        metadata={{
+          name: "GH DataPioneers",
+          description: "Recibe tus activos digitales",
+          url: import.meta.env.VITE_APP_URL,
+          icons: ["https://my-dapp.com/logo.png"],
+        }}
+      />
     </section>
   );
 };
