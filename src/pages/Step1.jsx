@@ -11,12 +11,12 @@ const Step1 = () => {
   const recaptchaRef = useRef(null);
   const navigate = useNavigate();
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const MAIL_URL = import.meta.env.VITE_MAIL_URL;
   const RECAPTCHA_KEY = import.meta.env.VITE_RECAPTCHA_KEY;
 
   useEffect(() => {
-    if (!BACKEND_URL || !RECAPTCHA_KEY) {
-      console.error("Faltan variables de entorno: VITE_BACKEND_URL o VITE_RECAPTCHA_KEY.");
+    if (!MAIL_URL || !RECAPTCHA_KEY) {
+      console.error("Faltan variables de entorno.");
     }
   }, []);
 
@@ -49,7 +49,7 @@ const Step1 = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(BACKEND_URL, {
+      const response = await axios.post(MAIL_URL, {
         email: sanitizedEmail,
         siteKey: recaptchaToken,
       });

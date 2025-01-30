@@ -14,7 +14,7 @@ const Step3 = () => {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
-  const BACKEND_WALLET_URL = import.meta.env.VITE_BACKEND_WALLET_URL;
+  const WALLET_URL = import.meta.env.VITE_WALLET_URL;
 
   useEffect(() => {
     const urlToken = searchParams.get("token");
@@ -36,7 +36,7 @@ const Step3 = () => {
 
     try {
       const response = await axios.post(
-        BACKEND_WALLET_URL,
+        WALLET_URL,
         { address },
         { headers: { Authorization: `Bearer ${token}` } }
       );
