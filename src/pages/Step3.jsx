@@ -2,7 +2,7 @@ import { useAccount, useDisconnect } from "wagmi";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { walletConnectModal } from "../WalletConnectProvider";
 
 const Step3 = () => {
   const [searchParams] = useSearchParams();
@@ -84,9 +84,9 @@ const Step3 = () => {
 
       <div className="wallets-buttons">
         {!isConnected ? (
-          <button onClick={open} className="btn btn-primary">
-            Conectar Billetera
-          </button>
+          <button onClick={() => walletConnectModal.open()} className="btn btn-primary">
+          Conectar Billetera
+        </button>
         ) : (
           <div className="text-center">
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
