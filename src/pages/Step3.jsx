@@ -6,7 +6,6 @@ import {
   useConnect,
 } from "@walletconnect/modal-sign-react";
 
-// ✅ Obtener `projectId` desde el .env
 const projectId = import.meta.env.VITE_WEB3MODAL_PROJECT_ID;
 if (!projectId) {
   throw new Error("VITE_WEB3MODAL_PROJECT_ID no está definido.");
@@ -32,7 +31,6 @@ const Step3 = () => {
     }
   }, [searchParams]);
 
-  // ✅ Hook de WalletConnect
   const { connect } = useConnect({
     requiredNamespaces: {
       eip155: {
@@ -43,14 +41,13 @@ const Step3 = () => {
     },
   });
 
-  // ✅ Conectar billetera
   async function onConnect() {
     try {
       setDisabled(true);
       const session = await connect();
 
       if (session && session.namespaces.eip155.accounts.length > 0) {
-        const walletAddress = session.namespaces.eip155.accounts[0].split(":")[2]; // Extraer dirección
+        const walletAddress = session.namespaces.eip155.accounts[0].split(":")[2];
         setAddress(walletAddress);
         console.log("Billetera conectada:", walletAddress);
       } else {
@@ -119,25 +116,23 @@ const Step3 = () => {
         </div>
       </div>
 
-      <div className="wallets-buttons">
         {!address ? (
-          <button onClick={onConnect} className="btn btn-primary" disabled={disabled}>
+          <button onClick={onConnect} className="btn btn-send w-100 mt-3 text-uppercase" disabled={disabled}>
             {disabled ? "Conectando..." : "Conectar Billetera"}
           </button>
         ) : (
           <div className="text-center">
-            <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
+            <button className="btn btn-send w-100 mt-3 text-uppercase" onClick={sendAddressToBackend} disabled={loading}>
               {loading ? "Enviando..." : "Solicitar entrega de activos"}
             </button>
           </div>
         )}
-      </div>
+  
 
       <div className="wallets-disclaimer">
         La dirección de tu billetera no se almacenará y se usará únicamente para esta transacción.
       </div>
 
-      {/* ✅ WalletConnect Modal */}
       <WalletConnectModalSign
         projectId={projectId}
         metadata={{
