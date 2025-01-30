@@ -12,6 +12,7 @@ const Step3 = () => {
   const navigate = useNavigate();
 
   const WALLET_URL = import.meta.env.VITE_WALLET_URL;
+  console.log("walletConnectModal:", walletConnectModal);
 
   useEffect(() => {
     const urlToken = searchParams.get("token");
@@ -24,14 +25,12 @@ const Step3 = () => {
 
   const connectWallet = async () => {
     try {
-      // ✅ Abre el modal y espera a que el usuario se conecte
       await walletConnectModal.open();
 
-      // ✅ Obtener la sesión activa después de la conexión
       const session = walletConnectModal.getSession();
 
       if (session?.accounts?.length > 0) {
-        setAddress(session.accounts[0]); // ✅ Guardar la dirección en el estado
+        setAddress(session.accounts[0]);
       } else {
         setError("No se pudo obtener la dirección de la billetera.");
       }
