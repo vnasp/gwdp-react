@@ -78,14 +78,14 @@ const Step3 = () => {
         </div>
 
       </div>
-      <div>
+      <div className="wallets-buttons">
         {!isConnected ? (
-          <div className="wallets-buttons">
-            <appkit-wallet-button wallet="metamask" />
-            <appkit-wallet-button wallet="coinbase" />
-            <appkit-wallet-button wallet="walletConnect" />
-            <appkit-wallet-button wallet="trust" />
-          </div>
+            <>
+            <div className="btn-send rounded-5"><appkit-wallet-button wallet="metamask" /></div>
+            <div className="btn-send rounded-5"><appkit-wallet-button wallet="coinbase" /></div>
+            <div className="btn-send rounded-5"><appkit-wallet-button wallet="walletConnect" /></div>
+            <div className="btn-send rounded-5"><appkit-wallet-button wallet="trust" /></div>
+            </>
         ) : (
           <div className="text-center">
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>

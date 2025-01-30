@@ -31,6 +31,7 @@ createAppKit({
   features: {
     analytics: true,
   },
+  themeMode: 'light',
 });
 
 export function AppKitProvider({ children }) {
