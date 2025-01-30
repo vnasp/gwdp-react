@@ -54,7 +54,7 @@ const Step1 = () => {
         siteKey: recaptchaToken,
       });
       
-      navigate("/correo-enviado");
+      navigate("/email-confirmation");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(error.response?.data?.message || "Hubo un problema al enviar el correo. Intenta nuevamente más tarde.");

@@ -1,6 +1,6 @@
 import { useAccount, useDisconnect } from "wagmi";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import '@reown/appkit-wallet-button/react'
 import axios from "axios";
 
@@ -9,6 +9,7 @@ const Step3 = () => {
   const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
@@ -40,8 +41,8 @@ const Step3 = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      console.log("Transacción enviada:", response.data);
-      alert("Transacción enviada con éxito.");
+      disconnect();
+      navigate("/request-progress");
     } catch (error) {
       setError(error.response?.data?.message || "Error en la verificación. Intenta nuevamente.");
     } finally {
@@ -53,31 +54,31 @@ const Step3 = () => {
     <section id="step-3">
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="alert alert-warning">Prepárate para recibir tus tokens. Conecta tu billetera.</div>
-      <div class="row text-center my-4">
-        <div class="col-md-4 my-2">
-          <div class="activo-box">
-            <i class="fas fa-coins fa-3x mb-2"></i>
-            <div class="activo-number">2</div>
-            <div class="activo-sigla">GHUT</div>
+      <div className="row text-center my-4">
+        <div className="col-md-4 my-2">
+          <div className="activo-box">
+            <i className="fas fa-coins fa-3x mb-2"></i>
+            <div className="activo-number">2</div>
+            <div className="activo-sigla">GHUT</div>
           </div>
         </div>
-        <div class="col-md-4 my-2">
-          <div class="activo-box">
-            <i class="fas fa-gem fa-3x mb-2"></i>
-            <div class="activo-number">1</div>
-            <div class="activo-sigla">GHGO</div>
+        <div className="col-md-4 my-2">
+          <div className="activo-box">
+            <i className="fas fa-gem fa-3x mb-2"></i>
+            <div className="activo-number">1</div>
+            <div className="activo-sigla">GHGO</div>
           </div>
         </div>
-        <div class="col-md-4 my-2">
-          <div class="activo-box">
-            <i class="fas fa-paint-brush fa-3x mb-2"></i>
-            <div class="activo-number">1</div>
-            <div class="activo-sigla">NFT</div>
+        <div className="col-md-4 my-2">
+          <div className="activo-box">
+            <i className="fas fa-paint-brush fa-3x mb-2"></i>
+            <div className="activo-number">1</div>
+            <div className="activo-sigla">NFT</div>
           </div>
         </div>
 
       </div>
-      <div className="d-flex flex-column justify-content-center align-items-center gap-4 mt-5">
+      <div className="wallets-buttons">
         {!isConnected ? (
           <>
             <appkit-wallet-button wallet="metamask" />
@@ -87,7 +88,6 @@ const Step3 = () => {
           </>
         ) : (
           <div className="text-center">
-            <p><strong>Dirección conectada:</strong> {address}</p>
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
               {loading ? "Enviando..." : "Solicitar entrega de tokens"}
             </button>
