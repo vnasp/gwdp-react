@@ -1,4 +1,4 @@
-import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useAppKitModal } from "@reown/appkit/react";
 import { useAccount, useDisconnect } from "wagmi";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -10,7 +10,7 @@ const Step3 = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   
-  const { open } = useWeb3Modal(); // Hook para abrir Web3Modal
+  const { open } = useAppKitModal(); // Hook para abrir Reown AppKit Modal
   const { address, isConnected } = useAccount(); // Obtener dirección conectada
   const { disconnect } = useDisconnect(); // Desconectar billetera
 
