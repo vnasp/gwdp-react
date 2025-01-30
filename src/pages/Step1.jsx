@@ -122,7 +122,7 @@ const Step1 = () => {
         </div>
       </form>
 
-      {error && <div className="alert alert-danger mt-3">{error}</div>}
+      {error && <div className="alert alert-warning mt-3">{error}</div>}
     </section>
   );
 };

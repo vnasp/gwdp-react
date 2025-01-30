@@ -52,7 +52,7 @@ const Step3 = () => {
 
   return (
     <section id="step-3">
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error && <div className="alert alert-warning">{error}</div>}
       <div className="title">Prepárate para recibir tus activos</div>
       <div className="subtitle">Conecta tu billetera</div>
       <div className="row text-center my-4">
