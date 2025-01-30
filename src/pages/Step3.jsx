@@ -98,9 +98,9 @@ const Step3 = () => {
 
       <div className="wallets-buttons">
         {!address ? (
-          <button onClick={connectWallet} className="btn btn-primary">
-            Conectar Billetera
-          </button>
+          <button onClick={() => walletConnectModal.openModal()} className="btn btn-primary">
+          Conectar Billetera
+        </button>
         ) : (
           <div className="text-center">
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
