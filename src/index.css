@@ -73,7 +73,7 @@ body {
 
 .wallets-buttons {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
@@ -82,4 +82,10 @@ body {
   background-image: url('/assets/img/bg-wallet.jpg');
   background-size: 40%;
   background-position: center;
+}
+
+@media (min-width: 768px) {
+  .wallets-buttons {
+    flex-direction: row;
+  }
 }
