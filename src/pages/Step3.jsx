@@ -1,4 +1,3 @@
-import { useAppKitModal } from "@reown/appkit/react";
 import { useAccount, useDisconnect } from "wagmi";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -10,7 +9,6 @@ const Step3 = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   
-  const { open } = useAppKitModal(); // Hook para abrir Reown AppKit Modal
   const { address, isConnected } = useAccount(); // Obtener dirección conectada
   const { disconnect } = useDisconnect(); // Desconectar billetera
 
@@ -57,9 +55,7 @@ const Step3 = () => {
 
       <div className="d-flex flex-column justify-content-center align-items-center gap-4 mt-5">
         {!isConnected ? (
-          <button className="btn btn-primary" onClick={open} disabled={loading}>
-            {loading ? "Conectando..." : "Conectar Billetera"}
-          </button>
+          <appkit-button />
         ) : (
           <div className="text-center">
             <p><strong>Dirección conectada:</strong> {address}</p>
