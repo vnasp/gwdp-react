@@ -12,7 +12,6 @@ const Step3 = () => {
   const navigate = useNavigate();
 
   const WALLET_URL = import.meta.env.VITE_WALLET_URL;
-  console.log("walletConnectModal:", walletConnectModal);
 
   useEffect(() => {
     const urlToken = searchParams.get("token");
