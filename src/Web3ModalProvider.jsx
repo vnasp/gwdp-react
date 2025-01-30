@@ -2,41 +2,47 @@ import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { WagmiProvider } from "wagmi";
-import { arbitrum, mainnet } from "wagmi/chains";
+import { walletConnect } from "wagmi/connectors";
+import { mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// 0. Setup queryClient
+// Setup Query Client
 const queryClient = new QueryClient();
 
-// 1. Get projectId from environment variables
+// Obtener el Project ID de WalletConnect desde .env
 const projectId = import.meta.env.VITE_WEB3MODAL_PROJECT_ID;
 
-// 2. Create wagmiConfig with metadata
+// Metadata del proyecto
 const metadata = {
   name: "GH DataPioneers",
-  description: "Conecta tu billetera con Web3Modal",
-  url: import.meta.env.VITE_APP_URL,
+  description: "Conecta tu billetera con WalletConnect",
+  url: import.meta.env.VITE_APP_URL, // URL del proyecto
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [mainnet, arbitrum];
+// Configurar las redes disponibles
+const chains = [mainnet];
 
-const config = defaultWagmiConfig({
+// Configurar Wagmi para **solo permitir WalletConnect**
+const wagmiConfig = defaultWagmiConfig({
   chains,
   projectId,
+  connectors: [
+    walletConnect({ projectId }), // ✅ Solo permitimos WalletConnect
+  ],
   metadata,
 });
 
+// Crear el modal con la configuración
 createWeb3Modal({
-  wagmiConfig: config,
+  wagmiConfig,
   projectId,
-  enableAnalytics: true,
-  enableOnramp: true,
+  enableAnalytics: false, // Opcional
 });
 
 export function Web3ModalProvider({ children }) {
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
