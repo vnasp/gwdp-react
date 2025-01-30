@@ -19,10 +19,12 @@ const wagmiConfig = defaultWagmiConfig({
 
 createWeb3Modal({
   wagmiConfig,
-  projectId,
+  projectId: projectId,
   chains,
   themeMode: "dark",
 });
+
+console.log("Enviando Project ID a Web3Modal:", projectId);
 
 const queryClient = new QueryClient();
 
