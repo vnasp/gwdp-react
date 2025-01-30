@@ -1,6 +1,7 @@
 import { useAccount, useDisconnect } from "wagmi";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import '@reown/appkit-wallet-button/react'
 import axios from "axios";
 
 const Step3 = () => {
@@ -9,8 +10,8 @@ const Step3 = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   
-  const { address, isConnected } = useAccount(); // Obtener dirección conectada
-  const { disconnect } = useDisconnect(); // Desconectar billetera
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
 
   const BACKEND_WALLET_URL = import.meta.env.VITE_BACKEND_WALLET_URL;
 
@@ -52,18 +53,43 @@ const Step3 = () => {
     <section id="step-3">
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="alert alert-warning">Prepárate para recibir tus tokens. Conecta tu billetera.</div>
+      <div class="row text-center my-4">
+        <div class="col-md-4 my-2">
+          <div class="activo-box">
+            <i class="fas fa-coins fa-3x mb-2"></i>
+            <div class="activo-number">2</div>
+            <div class="activo-sigla">GHUT</div>
+          </div>
+        </div>
+        <div class="col-md-4 my-2">
+          <div class="activo-box">
+            <i class="fas fa-gem fa-3x mb-2"></i>
+            <div class="activo-number">1</div>
+            <div class="activo-sigla">GHGO</div>
+          </div>
+        </div>
+        <div class="col-md-4 my-2">
+          <div class="activo-box">
+            <i class="fas fa-paint-brush fa-3x mb-2"></i>
+            <div class="activo-number">1</div>
+            <div class="activo-sigla">NFT</div>
+          </div>
+        </div>
 
+      </div>
       <div className="d-flex flex-column justify-content-center align-items-center gap-4 mt-5">
         {!isConnected ? (
-          <appkit-button />
+          <>
+            <appkit-wallet-button wallet="metamask" />
+            <appkit-wallet-button wallet="coinbase" />
+            <appkit-wallet-button wallet="walletConnect" />
+            <appkit-wallet-button wallet="trust" />
+          </>
         ) : (
           <div className="text-center">
             <p><strong>Dirección conectada:</strong> {address}</p>
-            <button className="btn btn-success" onClick={sendAddressToBackend} disabled={loading}>
-              {loading ? "Enviando..." : "Enviar Dirección"}
-            </button>
-            <button className="btn btn-danger mt-2" onClick={disconnect} disabled={loading}>
-              Desconectar Billetera
+            <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
+              {loading ? "Enviando..." : "Solicitar entrega de tokens"}
             </button>
           </div>
         )}
