@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
 const messages = [
-  "Solicitud enviada. Preparando la transacción.",
-  "Conectando con la red Ethereum.",
-  "Generando la transacción en el contrato inteligente.",
-  "Enviando la transacción a la blockchain.",
-  "Esperando confirmaciones de la red.",
-  "Transacción confirmada. Entregando tus activos...",
+  "Solicitud enviada. Preparando la transacción ...",
+  "Conectando con la red Ethereum ...",
+  "Generando la transacción en el contrato inteligente ..",
+  "Enviando la transacción a la blockchain ..",
+  "Esperando confirmaciones de la red ...",
+  "Transacción confirmada. Entregando tus activos ...",
 ];
 
 const Step4 = () => {
@@ -36,18 +36,18 @@ const Step4 = () => {
   return (
     <section>
       {!completed ? (
-        <div className="alert alert-info d-flex align-items-center justify-content-center gap-2">
-        <div className="spinner-border text-primary" role="status">
+        <div className="card-activos p-5 d-flex align-items-center justify-content-center gap-2">
+        <div className="spinner-border text-light spinner-border-sm" role="status">
           <span className="visually-hidden">Cargando...</span>
         </div>
-        <strong>{currentMessage}</strong>
+        <span>{currentMessage}</span>
       </div>
       ) : (
         <section id="step-5">
           <div className="card text-white mb-4 card-activos">
             <div className="card-body">
-              <h4 className="text-warning text-center fw-bold">¡Transacción completada!</h4>
-              <p>Tus activos han sido enviados exitosamente. Revisa tu billetera o Etherscan.</p>
+            <div className="title">¡Transacción completada!</div>
+            <div className="subtitle mb-4">Revisa tu billetera o Etherscan</div>
               <button
                 className="btn bg-white"
                 onClick={() => window.open("https://etherscan.io/", "_blank")}

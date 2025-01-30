@@ -1,10 +1,14 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lato', sans-serif;
   background-color: #0d0d0d;
   color: #ffffff;
   margin: 0;
   padding: 0;
   text-align: center;
+}
+
+header img {
+  width:150px;
 }
 .container {
   max-width: 750px;
@@ -12,18 +16,29 @@ body {
   padding: 20px;
 }
 
+.title {
+  font-size: 23px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #ad5eff;
+}
+
 /* Assets */
 .card-activos {
   border: 1px solid #ad5eff;
   border-radius: 2rem;
-  background-color: #1a1a1a;
+  background-color: #000000;
 }
 
 .activo-box {
   border: 1px solid #ad5eff;
   border-radius: 2rem;
   padding: 20px;
-  background-color: #1a1a1a;
+  background-color: #000000;
   transition: transform 0.3s, background-color 0.3s;
   display: flex;
   flex-direction: row;
@@ -80,12 +95,17 @@ body {
   padding: 3rem 1rem;
   border: 1px solid #aaa;
   border-radius: 1rem;
-  background-color: #1a1a1a;
+  background-color: #000000;
 }
 
 @media (min-width: 768px) {
+
+header img {
+  width:200px;
+}
   .wallets-buttons {
     flex-direction: row;
     gap: 1rem;
   }
+
 }

@@ -69,13 +69,8 @@ const Step1 = () => {
 
   return (
     <section id="step-1">
-      <div className="alert alert-warning">
-        Si previamente recibiste el NFT, no lo recibirás nuevamente.
-      </div>
-      <div className="alert alert-warning">
-        Si te registraste como DataPioneers antes del 31 de marzo de 2025 recibirás:
-      </div>
-
+      <div className="title">Prepárate para recibir tus activos</div>
+      <div className="subtitle">Ingresa tu correo electrónico registrado</div>
       <div className="row text-center my-4">
         <div className="col-md-4 my-2">
           <div className="activo-box">
@@ -99,7 +94,10 @@ const Step1 = () => {
           </div>
         </div>
       </div>
-
+      <div className="alert alert-secondary">
+        Si te registraste como DataPioneers antes del 31 de marzo de 2025 recibirás tus activos.<br/>
+        Si previamente recibiste el NFT, no lo recibirás nuevamente.
+      </div>
       <form onSubmit={sendEmail}>
         <div className="card text-white card-activos p-4">
           <div className="card-body">
@@ -117,8 +115,8 @@ const Step1 = () => {
             <div className="d-flex justify-content-center">
               <ReCAPTCHA sitekey={RECAPTCHA_KEY} ref={recaptchaRef} />
             </div>
-            <button className="btn btn-send w-100 mt-3" type="submit" disabled={loading}>
-              {loading ? "Enviando..." : "Enviar"}
+            <button className="btn btn-send w-100 mt-3 text-uppercase" type="submit" disabled={loading}>
+              {loading ? "Enviando..." : "Enviar mi correo registrado"}
             </button>
           </div>
         </div>
