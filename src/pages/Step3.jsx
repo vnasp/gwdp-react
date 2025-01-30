@@ -1,20 +1,15 @@
-import { useAccount, useDisconnect } from "wagmi";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { walletConnectModal } from "../WalletConnectProvider";
+import { walletConnectModal } from "./../Web3ModalProvider";
 
 const Step3 = () => {
   const [searchParams] = useSearchParams();
   const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [address, setAddress] = useState(null);
   const navigate = useNavigate();
-  
-  const { open } = useWeb3Modal(); // ✅ Hook para abrir el modal de Web3Modal
-
-  const { address, isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
 
   const WALLET_URL = import.meta.env.VITE_WALLET_URL;
 
@@ -26,6 +21,25 @@ const Step3 = () => {
       setToken(urlToken);
     }
   }, [searchParams]);
+
+  const connectWallet = async () => {
+    try {
+      // ✅ Abre el modal y espera a que el usuario se conecte
+      await walletConnectModal.open();
+
+      // ✅ Obtener la sesión activa después de la conexión
+      const session = walletConnectModal.getSession();
+
+      if (session?.accounts?.length > 0) {
+        setAddress(session.accounts[0]); // ✅ Guardar la dirección en el estado
+      } else {
+        setError("No se pudo obtener la dirección de la billetera.");
+      }
+    } catch (err) {
+      console.error("Error al conectar la billetera:", err);
+      setError("Hubo un problema al conectar la billetera. Intenta nuevamente.");
+    }
+  };
 
   const sendAddressToBackend = async () => {
     if (!token || !address) {
@@ -43,7 +57,8 @@ const Step3 = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      disconnect();
+      walletConnectModal.disconnect();
+      setAddress(null);
       navigate("/request-progress");
     } catch (error) {
       setError(error.response?.data?.message || "Error en la verificación. Intenta nuevamente.");
@@ -83,10 +98,10 @@ const Step3 = () => {
       </div>
 
       <div className="wallets-buttons">
-        {!isConnected ? (
-          <button onClick={() => walletConnectModal.open()} className="btn btn-primary">
-          Conectar Billetera
-        </button>
+        {!address ? (
+          <button onClick={connectWallet} className="btn btn-primary">
+            Conectar Billetera
+          </button>
         ) : (
           <div className="text-center">
             <button className="btn btn-send w-100 mt-3" onClick={sendAddressToBackend} disabled={loading}>
